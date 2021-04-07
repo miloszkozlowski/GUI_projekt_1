@@ -1,7 +1,6 @@
 package pl.mihome.s23419p01.menu;
 
 import pl.mihome.s23419p01.model.person.Person;
-import pl.mihome.s23419p01.model.rent.Rentable;
 import pl.mihome.s23419p01.model.rent.RentableArea;
 
 import java.util.HashMap;

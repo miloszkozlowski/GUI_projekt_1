@@ -4,7 +4,6 @@ import pl.mihome.s23419p01.model.CarService;
 import pl.mihome.s23419p01.model.rent.ConsumerWarehouse;
 import pl.mihome.s23419p01.model.rent.ParkingSpace;
 import pl.mihome.s23419p01.model.rent.Rentable;
-import pl.mihome.s23419p01.model.rent.RentableArea;
 
 import java.util.*;
 import java.util.function.Function;

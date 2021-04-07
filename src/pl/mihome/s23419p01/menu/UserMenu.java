@@ -3,7 +3,6 @@ package pl.mihome.s23419p01.menu;
 import pl.mihome.s23419p01.model.person.CarServiceOwner;
 import pl.mihome.s23419p01.model.person.Person;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserMenu extends MenuClass {
@@ -52,11 +51,11 @@ public class UserMenu extends MenuClass {
     }
 
     private void newUserScreen(boolean isOwner) {
-        String firstName = null;
-        String lastName = null;
+        String firstName;
+        String lastName;
         String pesel = "";
         Pattern peselPattern = Pattern.compile("^[0-9]{2}([02]{1}[1-9]{1}|[13]{1}[0-2]{1})([0-2]{1}[0-9]{1}|[3]{1}[0-1])[0-9]{5}$");
-        String postalAddress = null;
+        String postalAddress;
         printTitle(isOwner ? "new owner" : "new customer");
         System.out.print("First name: ");
         firstName = scanner.next();

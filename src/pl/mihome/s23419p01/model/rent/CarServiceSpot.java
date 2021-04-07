@@ -55,15 +55,13 @@ public class CarServiceSpot {
         }
     }
 
-    public Vehicle removeVehicle() {
+    public void removeVehicle() {
         if (isAvailable()) {
             throw new IllegalStateException("There is no vehicle here");
         }
-        Vehicle v = vehicleOn;
         vehicleOn = null;
         currentServiceLength = 0;
         new CarServiceSpotsManager().refresh();
-        return v;
     }
 
     @Override

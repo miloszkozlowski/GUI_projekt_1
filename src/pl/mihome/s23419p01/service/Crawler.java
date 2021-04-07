@@ -2,14 +2,9 @@ package pl.mihome.s23419p01.service;
 
 import pl.mihome.s23419p01.model.BookEntry;
 import pl.mihome.s23419p01.model.CarService;
-import pl.mihome.s23419p01.model.person.CarServiceOwner;
-import pl.mihome.s23419p01.model.person.Person;
-import pl.mihome.s23419p01.model.rent.CarServiceSpot;
 import pl.mihome.s23419p01.model.rent.RentableArea;
 
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 public class Crawler {

@@ -1,6 +1,5 @@
 package pl.mihome.s23419p01.model.vehicle;
 
-import pl.mihome.s23419p01.model.CarService;
 import pl.mihome.s23419p01.model.person.Person;
 import pl.mihome.s23419p01.model.rent.CarServiceSpot;
 import pl.mihome.s23419p01.service.DataStock;
@@ -37,10 +36,7 @@ public abstract class Vehicle {
                     if(v == null) {
                         return false;
                     }
-                    if(v.equals(this)) {
-                        return true;
-                    }
-                    return false;
+                    return v.equals(this);
                 })
                 .findFirst();
     }

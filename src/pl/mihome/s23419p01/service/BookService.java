@@ -26,7 +26,7 @@ public class BookService {
         }
         BookEntry editedEntry = bookEntries.get(id);
         if(!editedEntry.getPersonId().equals(currentUser.getId())) {
-            throw new IllegalArgumentException("Tou cannot pay for someone else. Are you charity or somethin'?");
+            throw new IllegalArgumentException("You cannot pay for someone else. Are you charity or somethin'?");
         }
         if(editedEntry.isPaid()) {
             throw new IllegalStateException("This is already paid yo!");

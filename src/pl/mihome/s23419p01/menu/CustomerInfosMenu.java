@@ -1,6 +1,5 @@
 package pl.mihome.s23419p01.menu;
 
-import pl.mihome.s23419p01.model.BookEntry;
 import pl.mihome.s23419p01.model.info.Info;
 
 import java.util.Comparator;

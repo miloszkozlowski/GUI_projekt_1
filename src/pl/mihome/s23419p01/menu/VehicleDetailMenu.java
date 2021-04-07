@@ -2,16 +2,13 @@ package pl.mihome.s23419p01.menu;
 
 import pl.mihome.s23419p01.model.CarService;
 import pl.mihome.s23419p01.model.rent.CarServiceSpot;
-import pl.mihome.s23419p01.model.rent.RentableArea;
 import pl.mihome.s23419p01.model.vehicle.Vehicle;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class VehicleDetailMenu extends MenuClass {
 
-    private Vehicle vehicle;
-    private boolean chooseSpotMode = false;
+    private final Vehicle vehicle;
 
     public VehicleDetailMenu(Vehicle vehicle) {
         this.title = vehicle.toString();

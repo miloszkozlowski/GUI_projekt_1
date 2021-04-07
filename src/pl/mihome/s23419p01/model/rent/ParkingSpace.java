@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 public class ParkingSpace extends RentableArea {
 
-    public static final BigDecimal PARKING_SPACE_CB_M = BigDecimal.valueOf(30);
     public static final Byte MAX_RENTAL_LENGTH_DAYS = 14;
 
     private Vehicle vehicleParked;

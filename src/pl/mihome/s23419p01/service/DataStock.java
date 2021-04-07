@@ -13,7 +13,6 @@ import pl.mihome.s23419p01.model.vehicle.OffRoadCar;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,10 +28,7 @@ public class DataStock {
     private LocalDate currentDate;
 
     private DataStock() {
-        loadData();
-        if(currentDate==null) {
-            currentDate = LocalDate.now();
-        }
+        currentDate = LocalDate.now();
     }
 
     public static DataStock getInstance() {
@@ -41,10 +37,6 @@ public class DataStock {
         }
         return INSTANCE;
     }
-
-    public void loadData() {}
-
-    public void saveData() {}
 
     public Map<CarService, CarServiceOwner> getCarServicesWithOwners() {
         return carServicesWithOwners;
@@ -59,7 +51,6 @@ public class DataStock {
     }
 
     public String getCurrentDateString() {
-        DateTimeFormatterBuilder builder = new DateTimeFormatterBuilder();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("eeee, d LLLL y");
         return currentDate.format(dtf);
     }

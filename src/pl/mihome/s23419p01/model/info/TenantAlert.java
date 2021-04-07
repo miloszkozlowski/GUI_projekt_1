@@ -20,10 +20,6 @@ public class TenantAlert implements Info {
         this.alertAmount = alertAmount;
     }
 
-    public UUID getPersonId() {
-        return personId;
-    }
-
     public UUID getWarehouseId() {
         return warehouseId;
     }

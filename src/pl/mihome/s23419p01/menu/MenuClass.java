@@ -48,7 +48,7 @@ public abstract class MenuClass implements Menu {
 
     void pickYourNumber(int exitNumber) {
         possibleChoices.add(exitNumber);
-        int choice = -1;
+        int choice;
         if(exitNumber != 0) {
             System.out.println();
             System.out.println();

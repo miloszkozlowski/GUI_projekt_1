@@ -120,16 +120,6 @@ public abstract class RentableArea implements Rentable {
         return approvedToEnter;
     }
 
-    public CustomerProperty retrievePropertyById(java.util.UUID id) {
-        CustomerProperty toReturn = properties.stream()
-                .filter(p -> p.getId().equals(id))
-                .findAny().orElseThrow(() -> {
-                    throw new IllegalArgumentException("Nic o takim ID nie znajduje się w tym magazynie");
-                });
-        properties.remove(toReturn);
-        return toReturn;
-    }
-
     @Override
     public boolean isAvailableForRent() {
         return whenRentEnds == null;

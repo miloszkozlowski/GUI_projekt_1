@@ -1,7 +1,6 @@
 package pl.mihome.s23419p01.model;
 
 import pl.mihome.s23419p01.model.person.CarServiceOwner;
-import pl.mihome.s23419p01.model.person.Person;
 import pl.mihome.s23419p01.model.rent.*;
 import pl.mihome.s23419p01.model.vehicle.Vehicle;
 import pl.mihome.s23419p01.service.DataStock;
