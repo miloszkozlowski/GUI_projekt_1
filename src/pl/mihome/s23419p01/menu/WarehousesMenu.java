@@ -44,7 +44,7 @@ public class WarehousesMenu extends MenuClass {
                 possibleChoices.add(i++);
             }
         }
-        chosen = pickYourNumber(i);
+        pickYourNumber(i);
     }
 
     @Override

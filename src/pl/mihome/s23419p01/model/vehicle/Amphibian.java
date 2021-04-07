@@ -14,6 +14,6 @@ public class Amphibian extends Vehicle {
 
     @Override
     public String toString() {
-        return "AMPHIBIAN: Name: " + name + ", size: " + sizeCubicMeters + "m2, side color: " + sideColor;
+        return "AMPHIBIAN: Name: " + name + ", size: " + sizeCubicMeters + "m3, side color: " + sideColor;
     }
 }

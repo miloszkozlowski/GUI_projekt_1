@@ -4,7 +4,7 @@ import pl.mihome.s23419p01.exception.NeverRentException;
 import pl.mihome.s23419p01.model.BookEntry;
 import pl.mihome.s23419p01.model.info.Info;
 import pl.mihome.s23419p01.model.info.TenantAlert;
-import pl.mihome.s23419p01.model.rent.RentableArea;
+import pl.mihome.s23419p01.model.vehicle.Vehicle;
 import pl.mihome.s23419p01.service.DataStock;
 
 import java.math.BigDecimal;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class Person {
 
     private final List<Info> alerts = new ArrayList<>();
+    private final List<Vehicle> vehicles = new ArrayList<>();
     private final UUID id = UUID.randomUUID();
     private final String firstName;
     private final String lastName;
@@ -95,5 +96,25 @@ public class Person {
     @Override
     public String toString() {
         return getName() + ", born " + birthDate.toString() + ", address " + residenceAddress + " (PESEL: " + pesel + "), first rental date: " + (firstRentalDate == null ? "never ever" : firstRentalDate.toString()) + ", assigned unique ID: " + id;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+        if(!(obj instanceof Person)) {
+            return false;
+        }
+        return ((Person) obj).getId().equals(id);
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        vehicle.setOwner(this);
+        vehicles.add(vehicle);
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 }

@@ -2,6 +2,7 @@ package pl.mihome.s23419p01.service;
 
 import pl.mihome.s23419p01.model.BookEntry;
 import pl.mihome.s23419p01.model.CarService;
+import pl.mihome.s23419p01.model.CustomerProperty;
 import pl.mihome.s23419p01.model.ServiceHistoryEntry;
 import pl.mihome.s23419p01.model.person.CarServiceOwner;
 import pl.mihome.s23419p01.model.person.Person;
@@ -21,9 +22,7 @@ public class DataStock {
     private static DataStock INSTANCE;
 
     private final Map<CarService, CarServiceOwner> carServicesWithOwners = new ConcurrentHashMap<>();
-//    private final Map<CarService, CarServiceOwner> carServicesWithOwners = new HashMap<>();
     private final Set<BookEntry> paymentsBook = Collections.synchronizedSet(new HashSet<>());
-//    private final Set<BookEntry> paymentsBook = new HashSet<>();
     private final Set<ServiceHistoryEntry> servicesHistory = new HashSet<>();
     private final List<Person> people = new ArrayList<>();
     private Person currentUser;
@@ -106,7 +105,7 @@ public class DataStock {
         Random random = new Random();
         for(int i = 0; i<10; i++) {
             BigDecimal size = BigDecimal.valueOf(random.nextInt(20)).add(BigDecimal.valueOf(35));
-            ConsumerWarehouse cw = new ConsumerWarehouse(size, size.multiply(BigDecimal.valueOf(3.47)));
+            ConsumerWarehouse cw = new ConsumerWarehouse(size, size.multiply(BigDecimal.valueOf(1.47)));
             carService.addWarehouse(cw);
         }
         for(int i = 0; i<5; i++) {
@@ -132,12 +131,19 @@ public class DataStock {
         addPerson(person5);
         addPerson(person6);
         CityCar cityCar = new CityCar("Fiat Punto", BigDecimal.valueOf(15), false, 0);
+        person6.addVehicle(cityCar);
         CityCar cityCar2 = new CityCar("BMW M5", BigDecimal.valueOf(21), true, 3);
+        person3.addVehicle(cityCar2);
         OffRoadCar offRoadCar = new OffRoadCar("Toyota Landcruiser", BigDecimal.valueOf(27), true, 8);
-        carService.serviceCar(cityCar, true, person6);
-        carService.serviceCar(cityCar2, false, person3);
+        person3.addVehicle(offRoadCar);
+        carService.serviceCar(cityCar, true);
+        carService.serviceCar(cityCar2, false);
         try {
-            carService.getAvailableConsumerWarehouse().rent(person2, LocalDate.now(), LocalDate.now().plusDays(3));
+            ConsumerWarehouse rentableArea = carService.getAvailableConsumerWarehouse();
+            rentableArea.rent(person2, LocalDate.now(), LocalDate.now().plusDays(3));
+            rentableArea.insertItem(new CustomerProperty(BigDecimal.ONE, "Old Iron"));
+            rentableArea.insertItem(new CustomerProperty(BigDecimal.valueOf(2.3), "Desk"));
+            rentableArea.insertItem(new CustomerProperty(BigDecimal.valueOf(0.5), "Chair"));
         }
         catch (IllegalStateException | IllegalAccessException ex) {
             System.out.println(ex.getMessage());

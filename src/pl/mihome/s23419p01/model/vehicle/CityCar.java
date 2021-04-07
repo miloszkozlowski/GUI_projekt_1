@@ -13,6 +13,6 @@ public class CityCar extends Car {
 
     @Override
     public String toString() {
-        return "CITY CAR: Name: " + name + ", size: " + sizeCubicMeters + "m2, has towbar: " + doesHaveTowbar + ", amount of seats equipped with ISO-FIX: " + amountOfIsoFixSeats;
+        return "CITY CAR: Name: " + name + ", size: " + sizeCubicMeters + "m3, has towbar: " + doesHaveTowbar + ", amount of seats equipped with ISO-FIX: " + amountOfIsoFixSeats;
     }
 }

@@ -3,6 +3,7 @@ package pl.mihome.s23419p01.menu;
 import pl.mihome.s23419p01.model.CarService;
 import pl.mihome.s23419p01.model.person.CarServiceOwner;
 import pl.mihome.s23419p01.model.rent.*;
+import pl.mihome.s23419p01.service.FileService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,12 +14,13 @@ import java.util.stream.IntStream;
 public class OwnerMenu extends MenuClass {
 
     public OwnerMenu() {
+        super();
         this.title = "owner menu";
     }
 
     @Override
     void printMenuDetails() {
-        System.out.println("1. My profile");
+        System.out.println("1. My Profile");
         System.out.println("2. Available Warehouses");
         System.out.println("3. Available Car Park spaces");
         System.out.println("4. Add Consumer Warehouse");
@@ -30,7 +32,7 @@ public class OwnerMenu extends MenuClass {
         System.out.println();
         System.out.println("9. Export Data to File");
         possibleChoices.addAll(IntStream.range(1, 11).boxed().collect(Collectors.toSet()));
-        chosen = pickYourNumber(10);
+        pickYourNumber(10);
     }
 
 
@@ -83,6 +85,15 @@ public class OwnerMenu extends MenuClass {
                 return new OwnerMenu();
             case 8:
                 newCarService();
+                return new OwnerMenu();
+            case 9:
+                List<CarService> carServices = dataStock.getCarServicesWithOwners().entrySet()
+                        .stream()
+                        .filter(entry -> entry.getValue().equals(dataStock.getCurrentUser()))
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.toList());
+                FileService fileService = new FileService(carServices);
+                fileService.saveDataToFiles();
                 return new OwnerMenu();
             case 10:
                 System.out.println();

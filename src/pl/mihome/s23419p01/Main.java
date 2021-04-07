@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-
     public static void main(String[] args) {
 
         System.out.println("         #####   #####  #          #     #####");
@@ -28,14 +27,15 @@ public class Main {
         DataStock dataStock = DataStock.getInstance();
         ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleAtFixedRate(new EveryFiveSeconds(), 5, 5, TimeUnit.SECONDS);
-        // below the task which fails after couple of runs
-        ses.scheduleAtFixedRate(new EveryTenSeconds(), 1 , 3, TimeUnit.SECONDS);
+        ses.scheduleAtFixedRate(new EveryTenSeconds(), 1 , 10, TimeUnit.SECONDS);
         dataStock.init();
 
         Menu currentScreen = new UserMenu();
         while(currentScreen != null) {
             currentScreen = currentScreen.display();
         }
+
+        ses.shutdown();
 
         System.out.println();
         System.out.println();

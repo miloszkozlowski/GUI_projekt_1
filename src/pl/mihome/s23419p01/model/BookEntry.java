@@ -9,17 +9,17 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class BookEntry {
-    private final UUID rentableId = UUID.randomUUID();
+    private final UUID id = UUID.randomUUID();
     private final UUID personId;
-    private final UUID id;
+    private final UUID rentableId;
     private final BigDecimal amountDue;
     private final LocalDate paymentDeadline;
     private boolean paid = false;
     private boolean notified = false;
 
-    public BookEntry(UUID personId, UUID id, BigDecimal amountDue, LocalDate paymentDeadline) {
+    public BookEntry(UUID personId, UUID rentableId, BigDecimal amountDue, LocalDate paymentDeadline) {
         this.personId = personId;
-        this.id = id;
+        this.rentableId = rentableId;
         this.amountDue = amountDue;
         this.paymentDeadline = paymentDeadline;
     }
@@ -71,5 +71,11 @@ public class BookEntry {
                     .orElseThrow();
             debtor.alert(new TenantAlert(personId, rentableId, dataStock.getCurrentDate(), amountDue));
         }
+    }
+
+    @Override
+    public String toString() {
+        String toReturn = rentableId + ": PLN " + amountDue + " until " + paymentDeadline;
+        return toReturn.concat(isPaid() ? " is paid" : " still need to be paid");
     }
 }

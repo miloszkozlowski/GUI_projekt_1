@@ -1,5 +1,6 @@
 package pl.mihome.s23419p01.menu;
 
+import pl.mihome.s23419p01.model.rent.ParkingSpace;
 import pl.mihome.s23419p01.model.rent.Rentable;
 
 public class WarehouseDetailMenu extends MenuClass {
@@ -21,13 +22,13 @@ public class WarehouseDetailMenu extends MenuClass {
             System.out.println("1. Start rent");
             possibleChoices.add(1);
         }
-        chosen = pickYourNumber(9);
+        pickYourNumber(9);
     }
 
     @Override
     Menu handleChoice(int choice) {
         if(choice == 9) {
-            return new WarehousesMenu();
+            return new WarehousesMenu(rentable instanceof ParkingSpace);
         }
         else {
             return new RentRentableMenu(rentable);

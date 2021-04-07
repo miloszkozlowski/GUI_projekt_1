@@ -11,10 +11,7 @@ import pl.mihome.s23419p01.service.DataStock;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class RentableArea implements Rentable {
 
@@ -26,7 +23,7 @@ public abstract class RentableArea implements Rentable {
     LocalDate whenRentStarted;
     LocalDate whenRentEnds;
     BigDecimal dailyPrice;
-    java.util.UUID id = java.util.UUID.randomUUID();
+    UUID id = UUID.randomUUID();
     BigDecimal areaCubicMeters;
     DataStock dataStock;
 
@@ -39,6 +36,10 @@ public abstract class RentableArea implements Rentable {
         this.dataStock = DataStock.getInstance();
     }
 
+    public Set<CustomerProperty> getProperties() {
+        return properties;
+    }
+
     public RentableArea(BigDecimal lengthMeters, BigDecimal widthMeters, BigDecimal heightMeters, BigDecimal dailyPrice) {
         this(lengthMeters.multiply(widthMeters).multiply(heightMeters), dailyPrice);
     }
@@ -48,8 +49,12 @@ public abstract class RentableArea implements Rentable {
         this(areaSquareMeters.multiply(heightMeters), dailyPrice);
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public final Person whoIsPaying() {
-        if (this instanceof ServiceWarehouse) {
+        if (this instanceof ServiceWarehouse || approvedToEnter.isEmpty()) {
             return null;
         }
         return approvedToEnter.get(0);
@@ -90,7 +95,7 @@ public abstract class RentableArea implements Rentable {
         catch (NeverRentException ex) {
             person.setFirstRentalDate(from);
         }
-        dataStock.addPaymentEntry(new BookEntry(id, person.getId(), fee, until));
+        dataStock.addPaymentEntry(new BookEntry(person.getId(), id, fee, until));
         return this;
     }
 
@@ -111,6 +116,9 @@ public abstract class RentableArea implements Rentable {
         }
     }
 
+    public List<Person> getApprovedToEnter() {
+        return approvedToEnter;
+    }
 
     public CustomerProperty retrievePropertyById(java.util.UUID id) {
         CustomerProperty toReturn = properties.stream()

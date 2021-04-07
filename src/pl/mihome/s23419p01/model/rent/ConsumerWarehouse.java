@@ -30,7 +30,8 @@ public class ConsumerWarehouse extends RentableArea implements Insertable {
         BigDecimal occupiedSpace = properties.stream()
                 .map(CustomerProperty::getSpaceCubicMeters)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        if (occupiedSpace.add(item.getSpaceCubicMeters()).compareTo(areaCubicMeters) > 0) {
+        BigDecimal sizeAfterInsert = occupiedSpace.add(item.getSpaceCubicMeters());
+        if (sizeAfterInsert.compareTo(areaCubicMeters) <= 0) {
             properties.add(item);
         }
         else {

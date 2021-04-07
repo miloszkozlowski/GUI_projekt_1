@@ -32,20 +32,18 @@ public class CarService {
         return this.warehousesSet;
     }
 
-    public boolean serviceCar(Vehicle vehicle, boolean independent, Person person) {
+    public CarServiceSpot serviceCar(Vehicle vehicle, boolean independent) {
         Optional<CarServiceSpot> availableCarServiceSpot = getAvailableServiceSpot(independent);
         if (availableCarServiceSpot.isPresent()) {
-            availableCarServiceSpot.get().putVehicle(vehicle, person);
-            return true;
+            availableCarServiceSpot.get().putVehicle(vehicle);
+            return availableCarServiceSpot.get();
         } else if (independent) {
-            vehicle.setOwner(person);
             carsWaitingForIndependentSpot.add(vehicle);
 
         } else {
-            vehicle.setOwner(person);
             carsWaitingForService.add(vehicle);
         }
-        return false;
+        return null;
     }
 
     public Optional<CarServiceSpot> getAvailableServiceSpot(boolean independent) {
@@ -64,6 +62,10 @@ public class CarService {
 
     public Queue<Vehicle> getCarsWaitingForService() {
         return carsWaitingForService;
+    }
+
+    public Set<CarServiceSpot> getServiceSpots() {
+        return serviceSpots;
     }
 
     public Queue<Vehicle> getCarsWaitingForIndependentSpot() {

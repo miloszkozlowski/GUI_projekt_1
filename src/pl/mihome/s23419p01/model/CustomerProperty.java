@@ -28,4 +28,9 @@ public class CustomerProperty {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return name + ", " + spaceCubicMeters + "m3 (" + id + ")";
+    }
 }

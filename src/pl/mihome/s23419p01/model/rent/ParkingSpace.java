@@ -24,7 +24,7 @@ public class ParkingSpace extends RentableArea {
     @Override
     public ParkingSpace rent(Person person, LocalDate from, LocalDate until) throws IllegalAccessException {
         if(until.minusDays(MAX_RENTAL_LENGTH_DAYS).isAfter(from)) {
-            throw new IllegalArgumentException("Yo! This is much to long for renting a parking space here!");
+            throw new IllegalArgumentException("Yo! This is much too long for renting a parking space here!");
         }
         return (ParkingSpace)super.rent(person, from, until);
     }
@@ -54,6 +54,10 @@ public class ParkingSpace extends RentableArea {
 
     public boolean isCarParked() {
         return vehicleParked != null;
+    }
+
+    public Vehicle getVehicleParked() {
+        return vehicleParked;
     }
 
     @Override

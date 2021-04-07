@@ -14,7 +14,7 @@ public class OffRoadCar extends Car {
 
     @Override
     public String toString() {
-        return "OFF ROAD CAR: Name: " + name + ", size: " + sizeCubicMeters + "m2, has towbar: " + doesHaveTowbar + ", amount of additional lights: " + amountOfAdditionalLights;
+        return "OFF ROAD CAR: Name: " + name + ", size: " + sizeCubicMeters + "m3, has towbar: " + doesHaveTowbar + ", amount of additional lights: " + amountOfAdditionalLights;
     }
 
 }

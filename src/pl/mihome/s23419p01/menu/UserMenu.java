@@ -8,12 +8,17 @@ import java.util.regex.Pattern;
 
 public class UserMenu extends MenuClass {
 
+    public UserMenu() {
+        super();
+        this.title = "Who are you?";
+    }
+
     @Override
     void printMenuDetails() {
         dataStock.setCurrentUser(null);
         int i = 1;
         for(Person person: dataStock.getPeople()) {
-            System.out.println(i + ". " + person.getName() + " (" + person.getId() + ")");
+            System.out.println(i + ". " + person.getName() + " (" + person.getId() + ")" + (person instanceof CarServiceOwner ? " - CAR SERVICE OWNER" : ""));
             possibleChoices.add(i++);
         }
         System.out.println();
@@ -21,12 +26,7 @@ public class UserMenu extends MenuClass {
         possibleChoices.add(i++);
         System.out.println(i + ". New Customer");
         possibleChoices.add(i);
-        chosen = pickYourNumber(0);
-    }
-
-    public UserMenu() {
-        super();
-        this.title = "Who are you?";
+        pickYourNumber(0);
     }
 
     @Override

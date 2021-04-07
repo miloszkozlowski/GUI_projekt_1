@@ -22,7 +22,7 @@ public class CarServiceSpotsManager {
                     Optional<CarServiceSpot> spot = carService.getAvailableServiceSpot(false);
                     spot.ifPresent(carServiceSpot -> {
                         Vehicle vehicle = carService.getCarsWaitingForService().poll();
-                        spot.get().putVehicle(vehicle, vehicle.getOwner());
+                        spot.get().putVehicle(vehicle);
                     });
                 });
 
@@ -33,7 +33,7 @@ public class CarServiceSpotsManager {
                     Optional<CarServiceSpot> spot = carService.getAvailableServiceSpot(true);
                     spot.ifPresent(carServiceSpot -> {
                         Vehicle vehicle = carService.getCarsWaitingForIndependentSpot().poll();
-                        carServiceSpot.putVehicle(vehicle, vehicle.getOwner());
+                        carServiceSpot.putVehicle(vehicle);
                     });
                 });
     }

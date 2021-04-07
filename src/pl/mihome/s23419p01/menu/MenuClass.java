@@ -46,9 +46,9 @@ public abstract class MenuClass implements Menu {
         System.out.println();
     }
 
-    int pickYourNumber(int exitNumber) {
+    void pickYourNumber(int exitNumber) {
         possibleChoices.add(exitNumber);
-        int chosen = -1;
+        int choice = -1;
         if(exitNumber != 0) {
             System.out.println();
             System.out.println();
@@ -59,9 +59,10 @@ public abstract class MenuClass implements Menu {
         System.out.println("Choose 0 and press enter to quit any time.");
         System.out.print("Pick your number: ");
         if(scanner.hasNextInt()) {
-            chosen = scanner.nextInt();
-            if(possibleChoices.contains(chosen)) {
-                return chosen;
+            choice = scanner.nextInt();
+            if(possibleChoices.contains(choice)) {
+                chosen = choice;
+                return;
             }
         }
 
@@ -70,7 +71,7 @@ public abstract class MenuClass implements Menu {
         System.out.println("************************");
         System.out.println();
         scanner.nextLine();
-        return chosen;
+
     }
 
 }

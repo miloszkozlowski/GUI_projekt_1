@@ -2,24 +2,23 @@ package pl.mihome.s23419p01.model.rent;
 
 import pl.mihome.s23419p01.model.CarService;
 import pl.mihome.s23419p01.model.ServiceHistoryEntry;
-import pl.mihome.s23419p01.model.person.Person;
 import pl.mihome.s23419p01.model.vehicle.Vehicle;
 import pl.mihome.s23419p01.service.CarServiceSpotsManager;
-import pl.mihome.s23419p01.service.Crawler;
+import pl.mihome.s23419p01.service.DataStock;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class CarServiceSpot {
     public static final BigDecimal SPACE_CUBIC_METERS = BigDecimal.valueOf(120);
-    private Vehicle vehicleOn;
-    private byte currentServiceLength;
-    private final Set<ServiceHistoryEntry> serviceHistory = new HashSet<>();
     protected final BigDecimal dailyServiceCost;
     private final CarService carService;
+    private Vehicle vehicleOn;
+    private byte currentServiceLength;
 
     public CarServiceSpot(BigDecimal dailyServiceCost, CarService carService) {
         this.dailyServiceCost = dailyServiceCost;
@@ -27,25 +26,37 @@ public class CarServiceSpot {
         carService.addServiceSpot(this);
     }
 
+    public Vehicle getVehicleOn() {
+        return vehicleOn;
+    }
+
+    public List<ServiceHistoryEntry> getServiceHistory() {
+        DataStock dataStock = DataStock.getInstance();
+        return dataStock.getServicesHistory().stream()
+                .filter(entry -> entry.getCarServiceSpot() == this)
+                .sorted(Comparator.comparing(ServiceHistoryEntry::getServiceStartDate).reversed())
+                .collect(Collectors.toList());
+    }
+
     public boolean isAvailable() {
         return vehicleOn == null;
     }
 
-    public void putVehicle(Vehicle vehicle, Person person) {
-        if(isAvailable()) {
+    public void putVehicle(Vehicle vehicle) {
+        if (isAvailable()) {
             vehicleOn = vehicle;
             Random random = new Random();
-            currentServiceLength = (byte)(random.nextInt(5)+1);
-            ServiceHistoryEntry entry = new ServiceHistoryEntry(dailyServiceCost.multiply(BigDecimal.valueOf(currentServiceLength)), carService, this, vehicle, person);
+            currentServiceLength = (byte) (random.nextInt(5) + 1);
+            DataStock dataStock = DataStock.getInstance();
+            ServiceHistoryEntry entry = new ServiceHistoryEntry(dailyServiceCost.multiply(BigDecimal.valueOf(currentServiceLength)), this, vehicle, dataStock.getCurrentDate());
             new CarServiceSpotsManager().addHistoryEntry(entry);
-        }
-        else {
+        } else {
             throw new IllegalStateException("This spot is occupied at the moment");
         }
     }
 
     public Vehicle removeVehicle() {
-        if(isAvailable()) {
+        if (isAvailable()) {
             throw new IllegalStateException("There is no vehicle here");
         }
         Vehicle v = vehicleOn;
@@ -58,7 +69,7 @@ public class CarServiceSpot {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        if(this instanceof IndependentCarServiceSpot) {
+        if (this instanceof IndependentCarServiceSpot) {
             stringBuilder.append("Independent ");
         }
         stringBuilder.append("Car Service Spot at ").append(carService.toString()).append(", daily fee PLN ").append(dailyServiceCost).append(", with vehicle on: ").append(vehicleOn);

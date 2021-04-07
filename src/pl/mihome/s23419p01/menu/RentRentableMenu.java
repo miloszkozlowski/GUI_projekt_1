@@ -30,7 +30,7 @@ public class RentRentableMenu extends MenuClass {
         }
         possibleChoices.addAll(usersForRental.keySet());
         possibleChoices.add(i);
-        chosen = pickYourNumber(i);
+        pickYourNumber(i);
     }
 
     @Override

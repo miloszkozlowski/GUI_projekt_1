@@ -1,5 +1,8 @@
 package pl.mihome.s23419p01.model.info;
 
+import pl.mihome.s23419p01.model.rent.RentableArea;
+import pl.mihome.s23419p01.service.DataStock;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -32,5 +35,16 @@ public class TenantAlert implements Info {
 
     public BigDecimal getAlertAmount() {
         return alertAmount;
+    }
+
+    @Override
+    public String toString() {
+        DataStock dataStock = DataStock.getInstance();
+        RentableArea rentableArea = dataStock.getCarServicesWithOwners().keySet().stream()
+                .flatMap(service -> service.getWarehousesSet().stream())
+                .filter(rentable -> rentable.getId().equals(warehouseId))
+                .findFirst()
+                .orElseThrow();
+        return alertDate + ": you must pay PLN " + alertAmount + " for rental of " + rentableArea.toString();
     }
 }

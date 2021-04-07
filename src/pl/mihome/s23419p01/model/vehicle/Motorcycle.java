@@ -13,6 +13,6 @@ public class Motorcycle extends Vehicle {
 
     @Override
     public String toString() {
-        return "MOTORCYCLE: Name: " + name + ", size: " + sizeCubicMeters + "m2, has side trunks: " + doesHaveSideTrunks;
+        return "MOTORCYCLE: Name: " + name + ", size: " + sizeCubicMeters + "m3, has side trunks: " + doesHaveSideTrunks;
     }
 }
